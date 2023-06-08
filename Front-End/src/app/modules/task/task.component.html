@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 bg-dark text-light">
+            <div class="d-flex justify-content-center">
+                <!-- <img src="{{ imgPic }}" alt="{{ imgPic }}" class="img-fluid imgDiv rounded-circle"> -->
+                <img [src]="imgPic" (load)="imageLoaded = true" (error)="handleImageError()" alt="Profile Pic" class="img-fluid imgDiv rounded-circle">
+
+            </div>
+
+            <ul class="nav flex-column customUlDiv">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/task/dashboard/home" routerLinkActive="active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/task/dashboard/addTask" routerLinkActive="active">Add Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/task/dashboard/taskHistory" routerLinkActive="active">Task
+                        History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/task/dashboard/pendingTask" routerLinkActive="active">Pending
+                        Task</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="" routerLink="/task/dashboard/completedTask">Completed Task</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" (click)="logOut()">Logout</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Content Display Area -->
+        <div class="col-md-10">
+            <router-outlet></router-outlet>
+            <!-- <p></p> -->
+        </div>
+    </div>
+</div>

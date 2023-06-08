@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="border border-1 border-dark rounded p-3 my-3">
+        <h3 class="text-center">Sign Up</h3>
+        <form #userSignUp="ngForm" (ngSubmit)="signup(userSignUp.value)">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name" required name="name"
+                    #name="ngModel" ngModel pattern="[A-Za-z]{1,32}">
+                    <span>
+                        Pristine: {{name.pristine}}
+                        DIRTY: {{name.dirty}}
+                    </span>
+                <div *ngIf="name.touched">
+                    <span class="text-danger" *ngIf="name.errors?.['required']">Name is required</span>
+                    <span class="text-danger" *ngIf="name.errors?.['pattern']">Enter valid name</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" asyncEmailValidator class="form-control" id="email" placeholder="Enter your email"
+                    required name="email" #email="ngModel" ngModel
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+                <div *ngIf="email.touched">
+                    <span class="text-danger" *ngIf="email.errors?.['required']">Email required</span>
+                    <span class="text-danger" *ngIf="email.errors?.['pattern']">Enter valid mail</span>
+                    <span class="text-danger" *ngIf="email.errors?.['asyncError']">Mail already exist</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number"
+                    pattern="[0-9]{10}" required name="mobile" #phone="ngModel" ngModel pattern="[789][0-9]{9}">
+                <div *ngIf="phone.touched">
+                    <span class="form-text text-muted text-danger" *ngIf="phone.errors?.['pattern']">Please enter a
+                        10-digit phone number</span>
+                    <small class="form-text text-danger" *ngIf="phone.errors?.['required']">Phone number is
+                        required</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password" required
+                    minlength="10" name="password" #password="ngModel" ngModel>
+                <div *ngIf="password.touched">
+                    <span class="text-danger" *ngIf="password.errors?.['required']">Password is required</span>
+                    <span class="text-danger" *ngIf="password.errors?.['minlength']">Enter minimum length</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password" class="form-label">Confirm Password</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="form-control"
+                    #confirmpassword="ngModel" ngModel required>
+                <div *ngIf="confirmpassword.touched">
+                    <span class="text-danger" *ngIf="confirmpassword.errors?.['required']">Required</span>
+                    <!-- <span class="text-danger" *ngIf="password.errors?.['minlength']">Enter minimum length</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="my-3">
+                    <label for="image">Upload Image (Optional): </label>
+                    <input type="file" class="form-control-file" name="pic" id="pic" #pic="ngModel"
+                        ngModel (change)="onImageChanged($event)">
+                        <!-- <input type="file" (change)="onImageChanged($event)" ngModel name="pic" id="pic" class="form-control"> -->
+                    <!-- <div *ngIf="file.touched">
+                        <span class="text-danger"></span>
+                    </div> -->
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!userSignUp.valid">Submit</button>
+        </form>
+    </div>
+</div>

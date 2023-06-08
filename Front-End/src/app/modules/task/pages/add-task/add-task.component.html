@@ -1,0 +1,39 @@
+<div class="container mt-5">
+
+    <div class="border border-2 border-dark rounded p-3">
+        <h2 class="my-3">Add Task</h2>
+        <form [formGroup]="taskForm" (ngSubmit)="submitTaskForm()">
+            <div class="form-group">
+                <label for="task">Task:</label>
+                <input type="text" class="form-control" id="task" placeholder="Enter task" required
+                    formControlName="task">
+                <div class="text-danger" *ngIf="task?.touched">
+                    <span *ngIf="task?.errors?.['required']">Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" id="description" placeholder="Enter description" required
+                    formControlName="desc">
+                <div class="text-danger" *ngIf="desc?.touched">
+                    <span *ngIf="desc?.errors?.['required']">Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="priority">Priority:</label>
+                <select class="form-select" id="priority" formControlName="priority">
+                    <option disabled [selected]=true>Select</option>
+
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <div class="text-center" *ngIf="priority?.touched">
+                    <span *ngIf="priority?.errors?.['required']">Required</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="!taskForm.valid">Submit</button>
+        </form>
+        <!-- <i class="bi bi-pencil"></i> -->
+    </div>
+</div>

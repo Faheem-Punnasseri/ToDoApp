@@ -1,0 +1,97 @@
+<div class="container mt-5">
+    <h3 class="text-center">Pending Task</h3>
+    <div class="form-group mt-3">
+        <label for="search">Filter:</label>
+        <select class="form-select" [(ngModel)]="taskPriority" (change)="filterTask()" name="priority" id="priority">
+            <option value="all">All</option>
+            <option value="high">High Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="low">Low Priority</option>
+        </select>
+    </div>
+    <table class="table mt-3 border border-2 border-secondary">
+        <thead class="thead-dark">
+            <tr>
+                <th>Sl.no</th>
+                <th>Added Date</th>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Priority</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- First Approach -->
+            <!-- <tr *ngFor="let item of taskList; let i=index"> -->
+            <tr *ngFor="let item of filteredList; let i=index">
+                <th scope="row"> {{i+1}}</th>
+                <td>{{item.date}}</td>
+                <td>{{item.task}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.priority | uppercase}}</td>
+                <td>
+                    <i class="bi bi-pencil text-primary mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        (click)="showDetails(item,item.id, i)"></i>
+                    <i class="bi bi-trash3 text-danger mx-1" (click)="deleteTask(item.id,i)"></i>
+                    <i class="bi bi-check2 text-success mx-1" (click)="updateRow(item,i)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 600px;">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form #modalEditForm="ngForm" (ngSubmit)="editTask(modalEditForm.value)">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="mb-3 row">
+                                <label for="date" class="col-sm-3 col-form-label">Added Date</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" readonly id="date" aria-describedby="date"
+                                        name="date" [(ngModel)]="date">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="task" class="col-sm-3 col-form-label">Task</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="task" aria-describedby="task"
+                                        name="task" [(ngModel)]="task">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="description" class="col-sm-3 col-form-label">Description</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="description"
+                                        aria-describedby="description" name="description" [(ngModel)]="description">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="priority" class="col-sm-3 col-form-label">Priority</label>
+                                <div class="col-sm-9">
+                                    <!-- <input type="text" class="form-control" id="priority" aria-describedby="priority" name="priority" [(ngModel)]="priority"> -->
+                                    <select class="form-select" id="priority" name="priority" [(ngModel)]="priority">
+                                        <!-- <option disabled [selected]="priority">Select</option> -->
+                                        <!-- <option disabled [selected]=true>Select</option>                         -->
+                                        <option value="high">High</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
